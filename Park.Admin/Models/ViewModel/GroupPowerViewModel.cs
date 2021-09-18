@@ -14,6 +14,5 @@ namespace Park.Admin.Models
 
         [Display(Name = "权限列表")]
         public JArray Powers { get; set; }
-
     }
 }

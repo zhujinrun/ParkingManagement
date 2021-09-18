@@ -1,0 +1,71 @@
+﻿@page
+@using FineUICore
+@model Park.Admin.Pages.Admin.DatabaseManageModel
+
+@{
+    ViewData["Title"] = "数据库管理";
+}
+
+@section head {
+    <style>
+        .f-panel-body .f-btn {
+            margin-right: 15px;
+        } 
+    </style>
+}
+
+@section body {
+     <f:Panel ID="Panel1" ShowBorder="false" ShowHeader="false" AutoScroll="true" Width="600">
+        <Items>
+            <f:SimpleForm ID="SimpleForm1" LabelWidth="100" BodyPadding="10" LabelAlign="Top" ShowBorder="false" ShowHeader="false">
+                <Items>
+                    <f:NumberBox ID="txtCount" Label="生成测试数据的数量" MaxValue="200" MinValue="10" NoDecimal="true" NoNegative="true" Required="true" Text="50" />
+                    <f:Button Text="生成测试数据" ID="btnTest" Icon="CogGo">
+                      <Listeners>
+                          <f:Listener Event="click" Handler="generateTestData"></f:Listener>
+                      </Listeners>
+                    </f:Button>
+                    <f:Button Text="重置数据库" ID="btnReset" Icon="BinEmpty">
+                      <Listeners>
+                          <f:Listener Event="click" Handler="resetAdminDatabase"></f:Listener>
+                      </Listeners>
+                    </f:Button>
+                </Items>
+            </f:SimpleForm>
+        </Items>
+    </f:Panel>
+}
+
+@section script{
+    <script>
+        function resetAdminDatabase() {
+            // F.confirm是异步函数，直接返回
+            F.confirm({
+                message: '危险操作！是否重置数据库？',
+                ok: function () {
+                      F.doPostBack('@Url.Handler("ResetAdminDatabase")');
+                },
+                cancel: function () {
+                }
+            });
+        }
+        function generateTestData() {
+            // F.confirm是异步函数，直接返回
+            F.confirm({
+                message: '是否生成测试数据？',
+                ok: function () {
+                    F.doPostBack('@Url.Handler("GenerateTestData")', {
+                        count: F.ui.txtCount.getValue()
+                    });
+                },
+                cancel: function () {
+                }
+            });
+        }
+        F.ready(() => {
+
+        })
+    </script>
+}
+
+

@@ -1,22 +1,26 @@
 ﻿@page
-@model Park.Admin.Pages.Overview.ChartsModel
+@model Park.Admin.Pages.ChartsModel
 @{
-    ViewData["Title"] = "模拟";
+    ViewData["Title"] = "Charts";
 }
+
 @section head{
     <style>
 
     </style>
 }
+
 @section body {
     <f:Panel ID="Panel1" IsViewPort="true" IsFluid="true" CssClass="blockpanel" Margin="10px"
-            ShowHeader="false" ShowBorder="false"  EnableIFrame="true" IFrameUrl="@Url.Content("~/Overview/ChartsContent")">
+            ShowHeader="false" ShowBorder="false"  EnableIFrame="true" IFrameUrl="@Url.Content("~/ChartsContent")">
         <Toolbars>
-            @*<f:Toolbar>
+            @*
+            <f:Toolbar>
                 <Items>
                   
                 </Items>
-            </f:Toolbar>*@
+            </f:Toolbar>
+            *@
         </Toolbars>
     </f:Panel>
 }

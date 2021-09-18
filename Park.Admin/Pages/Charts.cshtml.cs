@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Park.Admin.Pages
 {
-    public class GridPageHelper
+    public class ChartsModel : BaseModel
     {
-        public FineUICore.GridTagHelper GetGrid()
+        public IActionResult OnGet()
         {
-            return new FineUICore.GridTagHelper();
+            return Page();
         }
     }
-
 }

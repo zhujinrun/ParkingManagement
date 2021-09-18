@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web;
 using System.Linq;
-
-using Park.Admin.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Park.Admin.Models
@@ -38,7 +35,6 @@ namespace Park.Admin.Models
             List<Menu> dbMenus = db.Menus.Include(m => m.ViewPower).OrderBy(m => m.SortIndex).ToList();
 
             ResolveMenuCollection(dbMenus, null, 0);
-
         }
 
 

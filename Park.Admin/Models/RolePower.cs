@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Park.Admin.Models
 {
     // https://docs.microsoft.com/en-us/ef/core/modeling/relationships
     // Many-to-many relationships without an entity class to represent the join table are not yet supported.
-
     public class RolePower : IKey2ID
     {
         public int RoleID { get; set; }
@@ -17,7 +14,6 @@ namespace Park.Admin.Models
 
         public int PowerID { get; set; }
         public Power Power { get; set; }
-
 
         [NotMapped]
         public int ID1
@@ -31,6 +27,7 @@ namespace Park.Admin.Models
                 RoleID = value;
             }
         }
+
         [NotMapped]
         public int ID2
         {

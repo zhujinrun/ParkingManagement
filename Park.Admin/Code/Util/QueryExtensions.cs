@@ -8,7 +8,6 @@ namespace Park.Admin
 {
     // https://stackoverflow.com/questions/3945645/sorting-gridview-with-entity-framework#
     // https://stackoverflow.com/questions/7265186/how-do-i-specify-the-linq-orderby-argument-dynamically
-
     public static class QueryExtensions
     {
         public static IQueryable<T> SortBy<T>(this IQueryable<T> source, string sortExpression)

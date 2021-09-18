@@ -70,7 +70,7 @@ namespace Park.Admin.Models
                .WithMany(u => u.RolePowers)
                .HasForeignKey(u => u.PowerID);
 
-            
+
             // 自包含
             modelBuilder.Entity<Dept>()
                 .HasOne(d => d.Parent)
@@ -106,7 +106,6 @@ namespace Park.Admin.Models
                 .HasForeignKey(d => d.ViewPowerID)
                 .IsRequired(false);
         }
-
 
     }
 }

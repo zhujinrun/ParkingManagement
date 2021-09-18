@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Park.Admin.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Park.Models;
-using Park.Service;
 
 namespace Park.Admin
 {
@@ -33,10 +30,7 @@ namespace Park.Admin
             try
             {
                 var context = services.GetRequiredService<ParkAdminContext>();
-                var parkContext = services.GetRequiredService<ParkContext>();
                 ParkAdminDatabaseInitializer.Initialize(context);
-                ParkDatabaseInitializer.Initialize(parkContext);
-
             }
             catch (Exception ex)
             {

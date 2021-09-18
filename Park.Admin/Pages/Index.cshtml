@@ -76,7 +76,7 @@
                 <Items>
                     <f:TabStrip ID="mainTabStrip" EnableTabCloseMenu="true" ShowBorder="false" ShowInkBar="true">
                         <Tabs>
-                            <f:Tab ID="Tab1" Title="图表" Layout="Fit" IconUrl="~/res/images/park/icon_home.png" EnableIFrame="true" IFrameUrl="~/Overview/Charts"></f:Tab>
+                            <f:Tab ID="Tab1" Title="图表" Layout="Fit" IconUrl="~/res/images/park/icon_home.png" EnableIFrame="true" IFrameUrl="~/Charts"></f:Tab>
                         </Tabs>
                         <Tools>
                             <f:Tool IconFont="_Refresh" CssClass="tabtool" ToolTip="刷新" ID="toolRefresh">
@@ -126,7 +126,6 @@
                 iframeWnd.location.reload();
             }
         }
-
 
         // 点击标题栏工具图标 - 最大化
         function onToolMaximizeClick(event) {
@@ -186,7 +185,6 @@
             mainTabStrip.removeTab(activeTab.id);
         }
 
-
         // 页面控件初始化完毕后，会调用用户自定义的onReady函数
         F.ready(function () {
 
@@ -203,7 +201,7 @@
             // maxTabMessage: 超过最大允许打开选项卡数量时的提示信息
             F.initTreeTabStrip(treeMenu, mainTabStrip, {
                 maxTabCount: 10,
-                maxTabMessage: '请先关闭一些选项卡（最多允许打开 10 个）！'
+                maxTabMessage: '请您先关闭一些选项卡（推荐最多打开 10 个）！'
             });
             if (!isPC()) {
                 F.ui.leftRegion.collapse();

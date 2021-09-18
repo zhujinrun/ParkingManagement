@@ -31,10 +31,7 @@ namespace Park.Admin.Models
         [StringLength(500)]
         public string Remark { get; set; }
 
-
-
         //public List<Role> Roles { get; set; }
-
         public List<RolePower> RolePowers { get; set; }
 
     }

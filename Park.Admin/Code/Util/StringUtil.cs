@@ -8,7 +8,6 @@ namespace Park.Admin
 {
     public class StringUtil
     {
-
         public static int[] GetIntArrayFromString(string commaSeparatedString)
         {
             if (String.IsNullOrEmpty(commaSeparatedString))
@@ -26,6 +25,5 @@ namespace Park.Admin
             JSBeautifyLib.JSBeautify jsb = new JSBeautifyLib.JSBeautify(source, new JSBeautifyLib.JSBeautifyOptions());
             return jsb.GetResult();
         }
-
     }
 }

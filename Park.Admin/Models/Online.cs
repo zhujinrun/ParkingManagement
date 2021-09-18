@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Park.Admin.Models
 {
@@ -22,14 +20,10 @@ namespace Park.Admin.Models
         [Display(Name = "最后操作时间")]
         public DateTime? UpdateTime { get; set; }
 
-
-
-
-        [Display(Name = "用户")]
         [Required]
+        [Display(Name = "用户")]
         public int UserID { get; set; }
+
         public User User { get; set; }
-
-
     }
 }

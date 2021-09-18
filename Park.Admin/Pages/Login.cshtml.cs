@@ -1,12 +1,10 @@
 ﻿using Park.Admin.Models;
-
 using FineUICore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -20,14 +18,13 @@ namespace Park.Admin.Pages
         public void OnGet()
         {
             LoadData();
-
         }
 
         private void LoadData()
         {
-            Window1Title = String.Format("Park.Admin v{0}", GetProductVersion());
-
+            Window1Title = string.Format("Park.Admin v{0}", GetProductVersion());
         }
+
         public async Task<IActionResult> OnPostBtnSubmit_ClickAsync(string tbxUserName, string tbxPassword)
         {
             string userName = tbxUserName.Trim();
@@ -72,10 +69,10 @@ namespace Park.Admin.Pages
             await RegisterOnlineUserAsync(user.ID);
 
             // 用户所属的角色字符串，以逗号分隔
-            string roleIDs = String.Empty;
+            string roleIDs = string.Empty;
             if (user.RoleUsers != null)
             {
-                roleIDs = String.Join(",", user.RoleUsers.Select(r => r.RoleID).ToArray());
+                roleIDs = string.Join(",", user.RoleUsers.Select(r => r.RoleID).ToArray());
             }
 
             var claims = new[] { new Claim("UserID", user.ID.ToString()), new Claim("UserName", user.Name), new Claim("RoleIDs", roleIDs) };

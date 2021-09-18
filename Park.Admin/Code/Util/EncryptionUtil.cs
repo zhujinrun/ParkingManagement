@@ -10,7 +10,6 @@ namespace Park.Admin
     /// </summary>
     public class EncryptionUtil
     {
-
         /// <summary>
         /// 创建字符串的MD5哈希值
         /// </summary>

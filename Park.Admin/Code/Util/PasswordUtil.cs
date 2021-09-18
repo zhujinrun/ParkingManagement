@@ -45,8 +45,6 @@ namespace Park.Admin
 		
 			// compare the values
 			return CompareByteArray(dbPwd, saltedPassword);
-
-			
 		}
 
         /// <summary>

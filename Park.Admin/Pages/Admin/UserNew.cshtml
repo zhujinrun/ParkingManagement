@@ -125,7 +125,6 @@
 
     <script>
 
-        /////////////////////////////////////////////////////
         function checkSelectedRoleTriggerStatus() {
             if (F.ui.tbSelectedRole.getValue()) {
                 F.ui.tbSelectedRole.showTrigger1();
@@ -149,10 +148,7 @@
             F.ui.hfSelectedRole.setValue(roleIDs);
             checkSelectedRoleTriggerStatus();
         }
-        /////////////////////////////////////////////////////
-
-
-        /////////////////////////////////////////////////////
+       
         function checkSelectedDeptTriggerStatus() {
             if (F.ui.tbSelectedDept.getValue()) {
                 F.ui.tbSelectedDept.showTrigger1();
@@ -176,9 +172,7 @@
             F.ui.hfSelectedDept.setValue(deptID);
             checkSelectedDeptTriggerStatus();
         }
-        /////////////////////////////////////////////////////
-
-        /////////////////////////////////////////////////////
+        
         function checkSelectedTitleTriggerStatus() {
             if (F.ui.tbSelectedTitle.getValue()) {
                 F.ui.tbSelectedTitle.showTrigger1();
@@ -202,8 +196,7 @@
             F.ui.hfSelectedTitle.setValue(titleIDs);
             checkSelectedTitleTriggerStatus();
         }
-        /////////////////////////////////////////////////////
-
+        
         F.ready(function () {
             checkSelectedRoleTriggerStatus();
             checkSelectedDeptTriggerStatus();
@@ -213,4 +206,3 @@
     </script>
 
 }
-

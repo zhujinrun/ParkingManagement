@@ -13,7 +13,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Park.Models;
 
 namespace Park.Admin
 {
@@ -29,7 +28,6 @@ namespace Park.Admin
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddDistributedMemoryCache();
             services.AddSession();
 
@@ -55,16 +53,13 @@ namespace Park.Admin
                 options.ModelBinderProviders.Insert(0, new JsonModelBinderProvider());
             }).AddNewtonsoftJson(options =>
             {
-                //支持循环嵌套（如Car-ParkRecord-Car）
+                //支持循环嵌套（如 Car - ParkRecord - Car）
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            });
+            }).AddRazorRuntimeCompilation();
 
             // 设置数据库连接字符串（目前仅在 SQL Server 下测试通过）
             //services.AddDbContext<ParkAdminContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ParkAdminSQLServer")));
-            //services.AddDbContext<ParkContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ParkSQLServer")));
-
             services.AddDbContext<ParkAdminContext>(options => options.UseMySql(Configuration.GetConnectionString("ParkAdminMySQL"), ServerVersion.AutoDetect(Configuration.GetConnectionString("ParkAdminMySQL"))));
-            services.AddDbContext<ParkContext>(options => options.UseMySql(Configuration.GetConnectionString("ParkMySQL"), ServerVersion.AutoDetect(Configuration.GetConnectionString("ParkAdminMySQL"))));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

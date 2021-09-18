@@ -21,10 +21,7 @@ namespace Park.Admin.Models
         [StringLength(500)]
         public string Remark { get; set; }
 
-
         //public List<User> Users { get; set; }
-
-
         public List<TitleUser> TitleUsers { get; set; }
 
     }

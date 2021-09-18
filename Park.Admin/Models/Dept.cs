@@ -26,21 +26,12 @@ namespace Park.Admin.Models
         public string Remark { get; set; }
 
 
-
         [Display(Name = "上级部门")]
         public int? ParentID { get; set; }
         public Dept Parent { get; set; }
 
-
-        
         public List<Dept> Children { get; set; }
-
-
         public List<User> Users { get; set; }
-
-
-
-
 
         /// <summary>
         /// 菜单在树形结构中的层级（从0开始）
@@ -60,10 +51,9 @@ namespace Park.Admin.Models
         [NotMapped]
         public bool IsTreeLeaf { get; set; }
 
-
         public object Clone()
         {
-            Dept dept = new Dept
+            var dept = new Dept
             {
                 ID = ID,
                 Name = Name,

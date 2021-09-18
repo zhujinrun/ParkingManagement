@@ -7,9 +7,6 @@ namespace Park.Admin
 {
     public class ScriptUtil
     {
-        
-
-
 
     }
 }

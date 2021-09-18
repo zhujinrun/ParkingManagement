@@ -20,7 +20,7 @@ namespace Park.Admin
         /// <summary>
         /// 数据字段
         /// </summary>
-        private ViewDataDictionary ViewData;
+        private readonly ViewDataDictionary ViewData;
 
         /// <summary>
         /// 构造函数
@@ -30,7 +30,6 @@ namespace Park.Admin
         {
             ViewData = viewData;
         }
-
 
         /// <summary>
         /// 调用 ViewBag["key"]; 时执行
@@ -43,18 +42,17 @@ namespace Park.Admin
         {
             if (indexes == null || indexes.Length != 1)
             {
-                throw new ArgumentException("indexes");
+                throw new ArgumentException(null, nameof(indexes));
             }
 
-            string key = indexes[0] as string;
-            if (key != null)
+            if (indexes[0] is string key)
             {
                 result = ViewData[key];
                 return true;
             }
             else
             {
-                throw new ArgumentException("indexes");
+                throw new ArgumentException(null, nameof(indexes));
             }
         }
 
@@ -69,18 +67,17 @@ namespace Park.Admin
         {
             if (indexes == null || indexes.Length != 1)
             {
-                throw new ArgumentException("indexes");
+                throw new ArgumentException(null, nameof(indexes));
             }
 
-            string key = indexes[0] as string;
-            if (key != null)
+            if (indexes[0] is string key)
             {
                 ViewData[key] = value;
                 return true;
             }
             else
             {
-                throw new ArgumentException("indexes");
+                throw new ArgumentException(null, nameof(indexes));
             }
         }
 

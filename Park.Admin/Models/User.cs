@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Park.Admin.Models
 {
@@ -87,25 +86,25 @@ namespace Park.Admin.Models
 
         [Display(Name = "生日")]
         public DateTime? Birthday { get; set; }
+
         [Display(Name = "任职时间")]
         public DateTime? TakeOfficeTime { get; set; }
+
         [Display(Name = "上次登录时间")]
         public DateTime? LastLoginTime { get; set; }
+
         [Display(Name = "创建时间")]
         public DateTime? CreateTime { get; set; }
 
-        
-
-        
-        
         //[Display(Name = "所属角色")]
         //public List<Role> Roles { get; set; }
+
         //[Display(Name = "拥有职称")]
         //public List<Title> Titles { get; set; }
 
-
         [Display(Name = "所属部门")]
         public int? DeptID { get; set; }
+
         [Display(Name = "所属部门")]
         public Dept Dept { get; set; }
 
@@ -116,6 +115,4 @@ namespace Park.Admin.Models
         public List<TitleUser> TitleUsers { get; set; }
 
     }
-
-    
 }

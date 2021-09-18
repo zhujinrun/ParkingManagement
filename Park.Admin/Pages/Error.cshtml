@@ -16,7 +16,7 @@
     <h1 class="text-danger">@ViewBag.ErrorMessage</h1>
     <h2 class="text-danger">An error occurred while processing your request.</h2>
 
-    @if (!String.IsNullOrEmpty(ViewBag.RequestId))
+    @if (!string.IsNullOrEmpty(ViewBag.RequestId))
     {
         <p>
             <span>Request ID:</span> <code>@ViewBag.RequestId</code>

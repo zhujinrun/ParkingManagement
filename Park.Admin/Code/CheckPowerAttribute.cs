@@ -24,7 +24,7 @@ namespace Park.Admin
         {
             HttpContext context = filterContext.HttpContext;
             // 权限验证不通过
-            if (!String.IsNullOrEmpty(Name) && !BaseModel.CheckPower(context, Name))
+            if (!string.IsNullOrEmpty(Name) && !BaseModel.CheckPower(context, Name))
             {
                 if (context.Request.Method == "GET")
                 {
@@ -40,11 +40,6 @@ namespace Park.Admin
                     filterContext.Result = UIHelper.Result();
                 }
             }
-
         }
-
-
-
-
     }
 }

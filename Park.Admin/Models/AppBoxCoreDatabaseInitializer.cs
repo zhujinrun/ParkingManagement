@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-
 
 namespace Park.Admin.Models
 {
@@ -35,281 +33,374 @@ namespace Park.Admin.Models
             context.SaveChanges();
         }
 
-        private static List<Menu> GetMenus(ParkAdminContext context)
+        #region GetConfigs
+
+        private static List<Config> GetConfigs()
         {
-            var menus = new List<Menu> {
-                new Menu
+            var configs = new List<Config> {
+                new Config
                 {
-                    Name = "车与车主",
-                    SortIndex = 10,
-                    ImageUrl = "~/res/images/park/icon_car.png",
-                    Children = new List<Menu> {
-                        new Menu
-                        {
-                            Name = "车主管理",
-                            SortIndex = 11,
-                            NavigateUrl = "~/CarAndOwner/CarOwnerList",
-                            ViewPower = context.Powers.Where(p => p.Name == "CarAndOwnerPower").FirstOrDefault<Power>()
-                        } ,
-                        new Menu
-                        {
-                            Name = "车辆管理",
-                            SortIndex = 12,
-                            NavigateUrl = "~/CarAndOwner/CarList",
-                            ViewPower = context.Powers.Where(p => p.Name == "CarAndOwnerPower").FirstOrDefault<Power>()
-                        } ,
-                        new Menu{
-                            Name = "停车记录",
-                            SortIndex = 13,
-                            NavigateUrl = "~/CarAndOwner/ParkRecordList",
-                            ViewPower = context.Powers.Where(p => p.Name == "CarAndOwnerPower").FirstOrDefault<Power>()
-
-                        } ,
-                        new Menu{
-                            Name = "交易记录",
-                            SortIndex = 14,
-                            NavigateUrl = "~/CarAndOwner/TransactionRecordList",
-                            ViewPower = context.Powers.Where(p => p.Name == "CarAndOwnerPower").FirstOrDefault<Power>()
-
-                        } ,
-                    }
+                    ConfigKey = "IsDemo",
+                    ConfigValue = "true",
+                    Remark = "是否演示模式"
                 },
-                new Menu
+                new Config
                 {
-                    Name = "停车场",
-                    SortIndex = 20,
-                    ImageUrl = "~/res/images/park/icon_park.png",
-                    Children = new List<Menu> {
-                        new Menu
-                        {
-                            Name = "停车区管理",
-                            SortIndex = 21,
-                            NavigateUrl = "~/Parking/ParkAreaList",
-                            ViewPower = context.Powers.Where(p => p.Name == "ParkPower").FirstOrDefault<Power>()
-
-                        } ,
-                        new Menu
-                        {
-                            Name = "停车位管理",
-                            SortIndex = 12,
-                            NavigateUrl = "~/Parking/ParkingSpaceList",
-                            ViewPower = context.Powers.Where(p => p.Name == "ParkPower").FirstOrDefault<Power>()
-
-                        } ,
-                    }
+                    ConfigKey = "Title",
+                    ConfigValue = "Park.Admin",
+                    Remark = "网站的标题"
                 },
-                new Menu
+                new Config
                 {
-                    Name = "业务模拟",
-                    SortIndex = 30,
-                   NavigateUrl = "~/Overview/Simulate",
-                   ImageUrl = "~/res/images/park/icon_bag.png",
-                    ViewPower = context.Powers.Where(p => p.Name == "ParkPower").FirstOrDefault<Power>()
-
+                    ConfigKey = "PageSize",
+                    ConfigValue = "20",
+                    Remark = "表格每页显示的个数"
                 },
-                new Menu
+                new Config
                 {
-                    Name = "统计图表",
-                    SortIndex = 40,
-                   NavigateUrl = "~/Overview/Charts",
-                   ImageUrl = "~/res/images/park/icon_charts.png",
-                    ViewPower = context.Powers.Where(p => p.Name == "ParkPower").FirstOrDefault<Power>()
-
+                    ConfigKey = "Theme",
+                    ConfigValue = "Cupertino",
+                    Remark = "网站主题"
                 },
-                 new Menu{
-                    Name = "停车场设置",
-                    SortIndex = 50,
-                   NavigateUrl = "~/Overview/ParkSettings",
-                   ImageUrl = "~/res/images/park/icon_settings_2.png",
-                     ViewPower = context.Powers.Where(p => p.Name == "ParkPower").FirstOrDefault<Power>()
-
-                },
-                 new Menu{
-                    Name = "数据库管理",
-                    SortIndex = 60,
-                   NavigateUrl = "~/Overview/DatabaseManage",
-                            ImageUrl = "~/res/images/park/icon_settings_2.png",
-                     ViewPower = context.Powers.Where(p => p.Name == "ParkPower").FirstOrDefault<Power>()
-
-                },
-                new Menu
+                new Config
                 {
-                    Name = "系统管理",
-                    SortIndex = 100,
-                    Remark = "顶级菜单",
-                    ImageUrl = "~/res/images/park/icon_settings.png",
-                    Children = new List<Menu> {
-                        new Menu
+                    ConfigKey = "HelpList",
+                    ConfigValue = "[{\"Text\":\"万年历\",\"Icon\":\"Calendar\",\"ID\":\"wannianli\",\"URL\":\"~/Admin/HelpWanNianLi\"},{\"Text\":\"科学计算器\",\"Icon\":\"Calculator\",\"ID\":\"jisuanqi\",\"URL\":\"~/Admin/HelpJiSuanQi\"},{\"Text\":\"系统帮助\",\"Icon\":\"Help\",\"ID\":\"help\",\"URL\":\"~/Admin/Help\"}]",
+                    Remark = "帮助下拉列表的JSON字符串"
+                }
+            };
+
+            return configs;
+        }
+
+        //private static List<Config> GetConfigs()
+        //{
+        //    var configs = new List<Config> {
+        //        new Config
+        //        {
+        //            ConfigKey = "Title",
+        //            ConfigValue = "停车场管理系统",
+        //            Remark = "网站的标题"
+        //        },
+        //        new Config
+        //        {
+        //            ConfigKey = "PageSize",
+        //            ConfigValue = "50",
+        //            Remark = "表格每页显示的个数"
+        //        },
+        //        new Config
+        //        {
+        //            ConfigKey = "Theme",
+        //            ConfigValue = "image_blue_sky",
+        //            Remark = "网站主题"
+        //        },
+        //        new Config
+        //        {
+        //            ConfigKey = "HelpList",
+        //            ConfigValue = "[{\"Text\":\"万年历\",\"Icon\":\"Calendar\",\"ID\":\"wannianli\",\"URL\":\"~/Admin/HelpWanNianLi\"},{\"Text\":\"科学计算器\",\"Icon\":\"Calculator\",\"ID\":\"jisuanqi\",\"URL\":\"~/Admin/HelpJiSuanQi\"},{\"Text\":\"系统帮助\",\"Icon\":\"Help\",\"ID\":\"help\",\"URL\":\"~/Admin/Help\"}]",
+        //            Remark = "帮助下拉列表的JSON字符串"
+        //        }
+        //    };
+
+        //    return configs;
+        //}
+
+        #endregion
+
+        #region GetDepts
+
+        private static List<Dept> GetDepts()
+        {
+            var depts = new List<Dept> {
+                new Dept
+                {
+                    Name = "研发部",
+                    SortIndex = 1,
+                    Remark = "顶级部门",
+                    Children = new List<Dept> {
+                        new Dept
                         {
-                            Name = "用户管理",
-                            SortIndex = 101,
-                            Remark = "二级菜单",
-                            NavigateUrl = "~/Admin/UserList",
-                            //ImageUrl = "~/res/images/park/icon_settings.png",
-                            ViewPower = context.Powers.Where(p => p.Name == "CoreUserView").FirstOrDefault<Power>()
+                            Name = "开发部",
+                            SortIndex = 1,
+                            Remark = "二级部门"
                         },
-                        //new Menu
-                        //{
-                        //    Name = "职称管理",
-                        //    SortIndex = 102,
-                        //    Remark = "二级菜单",
-                        //    NavigateUrl = "~/Admin/Title",
-                        //    ImageUrl = "~/res/icon/tag_blue.png",
-                        //    ViewPower = context.Powers.Where(p => p.Name == "CoreTitleView").FirstOrDefault<Power>()
-                        //},
-                        //new Menu
-                        //{
-                        //    Name = "职称用户管理",
-                        //    SortIndex = 103,
-                        //    Remark = "二级菜单",
-                        //    NavigateUrl = "~/Admin/TitleUser",
-                        //    ImageUrl = "~/res/icon/tag_blue.png",
-                        //    ViewPower = context.Powers.Where(p => p.Name == "CoreTitleUserView").FirstOrDefault<Power>()
-                        //},
-                        //new Menu
-                        //{
-                        //    Name = "部门管理",
-                        //    SortIndex = 104,
-                        //    Remark = "二级菜单",
-                        //    NavigateUrl = "~/Admin/Dept",
-                        //    ImageUrl = "~/res/icon/tag_blue.png",
-                        //    ViewPower = context.Powers.Where(p => p.Name == "CoreDeptView").FirstOrDefault<Power>()
-                        //},
-                        //new Menu
-                        //{
-                        //    Name = "部门用户管理",
-                        //    SortIndex = 105,
-                        //    Remark = "二级菜单",
-                        //    NavigateUrl = "~/Admin/DeptUser",
-                        //    ImageUrl = "~/res/icon/tag_blue.png",
-                        //    ViewPower = context.Powers.Where(p => p.Name == "CoreDeptUserView").FirstOrDefault<Power>()
-                        //},
-                        new Menu
+                        new Dept
                         {
-                            Name = "角色管理",
-                            SortIndex = 106,
-                            Remark = "二级菜单",
-                            NavigateUrl = "~/Admin/Role",
-                            //ImageUrl = "~/res/images/park/icon_settings.png",
-                            ViewPower = context.Powers.Where(p => p.Name == "CoreRoleView").FirstOrDefault<Power>()
-                        },
-                        new Menu
-                        {
-                            Name = "角色用户管理",
-                            SortIndex = 107,
-                            Remark = "二级菜单",
-                            NavigateUrl = "~/Admin/RoleUser",
-                            //ImageUrl = "~/res/images/park/icon_settings.png",
-                            ViewPower = context.Powers.Where(p => p.Name == "CoreRoleUserView").FirstOrDefault<Power>()
-                        },
-                        new Menu
-                        {
-                            Name = "权限管理",
-                            SortIndex = 108,
-                            Remark = "二级菜单",
-                            NavigateUrl = "~/Admin/Power",
-                            //ImageUrl = "~/res/images/park/icon_settings.png",
-                            ViewPower = context.Powers.Where(p => p.Name == "CorePowerView").FirstOrDefault<Power>()
-                        },
-                        new Menu
-                        {
-                            Name = "角色权限管理",
-                            SortIndex = 109,
-                            Remark = "二级菜单",
-                            NavigateUrl = "~/Admin/RolePower",
-                            //ImageUrl = "~/res/images/park/icon_settings.png",
-                            ViewPower = context.Powers.Where(p => p.Name == "CoreRolePowerView").FirstOrDefault<Power>()
-                        },
-                        new Menu
-                        {
-                            Name = "菜单管理",
-                            SortIndex = 110,
-                            Remark = "二级菜单",
-                            NavigateUrl = "~/Admin/Menu",
-                            //ImageUrl = "~/res/images/park/icon_settings.png",
-                            ViewPower = context.Powers.Where(p => p.Name == "CoreMenuView").FirstOrDefault<Power>()
-                        },
-                        new Menu
-                        {
-                            Name = "在线统计",
-                            SortIndex = 111,
-                            Remark = "二级菜单",
-                            NavigateUrl = "~/Admin/Online",
-                            //ImageUrl = "~/res/images/park/icon_settings.png",
-                            ViewPower = context.Powers.Where(p => p.Name == "CoreOnlineView").FirstOrDefault<Power>()
-                        },
-                        new Menu
-                        {
-                            Name = "系统配置",
-                            SortIndex = 112,
-                            Remark = "二级菜单",
-                            NavigateUrl = "~/Admin/Config",
-                            //ImageUrl = "~/res/images/park/icon_settings.png",
-                            ViewPower = context.Powers.Where(p => p.Name == "CoreConfigView").FirstOrDefault<Power>()
-                        },
-                        new Menu
-                        {
-                            Name = "修改密码",
-                            SortIndex = 113,
-                            Remark = "二级菜单",
-                            NavigateUrl = "~/Admin/ChangePassword",
-                            //ImageUrl = "~/res/images/park/icon_settings.png",
+                            Name = "测试部",
+                            SortIndex = 2,
+                            Remark = "二级部门"
                         }
                     }
                 },
-            };
-
-            return menus;
-        }
-
-        private static List<RolePower> GetRolePowers(ParkAdminContext db)
-        {
-            var rps = new List<RolePower>()
-            {
-                new RolePower()
+                new Dept
                 {
-                    PowerID=db.Powers.FirstOrDefault(p=>p.Name=="ParkPower").ID,
-                    RoleID=db.Roles.FirstOrDefault(p=>p.Name=="停车场管理员").ID,
-                } ,
-                new RolePower()
+                    Name = "销售部",
+                    SortIndex = 2,
+                    Remark = "顶级部门",
+                    Children = new List<Dept> {
+                        new Dept
+                        {
+                            Name = "直销部",
+                            SortIndex = 1,
+                            Remark = "二级部门"
+                        },
+                        new Dept
+                        {
+                            Name = "渠道部",
+                            SortIndex = 2,
+                            Remark = "二级部门"
+                        }
+                    }
+                },
+                new Dept
                 {
-                    PowerID=db.Powers.FirstOrDefault(p=>p.Name=="CarAndOwnerPower").ID,
-                    RoleID=db.Roles.FirstOrDefault(p=>p.Name=="停车场管理员").ID,
-                } ,
-                new RolePower()
+                    Name = "客服部",
+                    SortIndex = 3,
+                    Remark = "顶级部门",
+                    Children = new List<Dept> {
+                        new Dept
+                        {
+                            Name = "实施部",
+                            SortIndex = 1,
+                            Remark = "二级部门"
+                        },
+                        new Dept
+                        {
+                            Name = "售后服务部",
+                            SortIndex = 2,
+                            Remark = "二级部门"
+                        },
+                        new Dept
+                        {
+                            Name = "大客户服务部",
+                            SortIndex = 3,
+                            Remark = "二级部门"
+                        }
+                    }
+                },
+                new Dept
                 {
-                    PowerID=db.Powers.FirstOrDefault(p=>p.Name=="CarAndOwnerPower").ID,
-                    RoleID=db.Roles.FirstOrDefault(p=>p.Name=="业务管理员").ID,
+                    Name = "财务部",
+                    SortIndex = 4,
+                    Remark = "顶级部门"
+                },
+                new Dept
+                {
+                    Name = "行政部",
+                    SortIndex = 5,
+                    Remark = "顶级部门",
+                    Children = new List<Dept> {
+                        new Dept
+                        {
+                            Name = "人事部",
+                            SortIndex = 1,
+                            Remark = "二级部门"
+                        },
+                        new Dept
+                        {
+                            Name = "后勤部",
+                            SortIndex = 2,
+                            Remark = "二级部门"
+                        },
+                        new Dept
+                        {
+                            Name = "运输部",
+                            SortIndex = 3,
+                            Remark = "二级部门",
+                            Children = new List<Dept>{
+                                new Dept{
+                                    Name = "省内运输部",
+                                    SortIndex = 1,
+                                    Remark = "三级部门",
+                                },
+                                new Dept{
+                                    Name = "国内运输部",
+                                    SortIndex = 2,
+                                    Remark = "三级部门",
+                                },
+                                new Dept{
+                                    Name = "国际运输部",
+                                    SortIndex = 3,
+                                    Remark = "三级部门",
+                                }
+                            }
+                        }
+                    }
                 }
             };
-            return rps;
+
+            return depts;
         }
-        private static List<RoleUser> GetRoleUsers(ParkAdminContext db)
+
+        //private static List<Dept> GetDepts()
+        //{
+        //    var depts = new List<Dept>();
+
+        //    return depts;
+        //}
+
+        #endregion
+
+        #region GetUsers
+
+        private static List<User> GetUsers()
         {
-            var rus = new List<RoleUser>()
+            string[] USER_NAMES = { "男", "童光喜", "男", "方原柏", "女", "祝春亚", "男", "涂辉", "男", "舒兆国", "男", "熊忠文", "男", "徐吉琳", "男", "方金海", "男", "包卫峰", "女", "靖小燕", "男", "杨习斌", "男", "徐长旺", "男", "聂建雄", "男", "周敦友", "男", "陈友庭", "女", "陆静芳", "男", "袁国柱", "女", "骆新桂", "男", "许治国", "男", "马先加", "男", "赵恢川", "男", "柯常胜", "男", "黄国鹏", "男", "柯尊北", "男", "刘海云", "男", "罗清波", "男", "张业权", "女", "丁溯鋆", "男", "吴俊", "男", "郑江", "男", "李亚华", "男", "石光富", "男", "谭志洪", "男", "胡中生", "男", "董龙剑", "男", "陈红", "男", "汪海平", "男", "彭道洲", "女", "尹莉君", "男", "占耀玲", "男", "付杰", "男", "王红艳", "男", "邝兴", "男", "饶玮", "男", "王方胜", "男", "陈劲松", "男", "邓庆华", "男", "王石林", "男", "胡俊明", "男", "索相龙", "男", "陈海军", "男", "吴文涛", "女", "熊望梅", "女", "段丽华", "女", "胡莎莎", "男", "徐友安", "男", "肖诗涛", "男", "王闯", "男", "余兴龙", "男", "芦荫杰", "男", "丁金富", "男", "谭军令", "女", "鄢旭燕", "男", "田坤", "男", "夏德胜", "男", "喻显发", "男", "马兴宝", "男", "孙学涛", "男", "陶云成", "男", "马远健", "男", "田华", "男", "聂子森", "男", "郑永军", "男", "余昌平", "男", "陶俊华", "男", "李小林", "男", "李荣宝", "男", "梅盈凯", "男", "张元群", "男", "郝新华", "男", "刘红涛", "男", "向志强", "男", "伍小峰", "男", "胡勇民", "男", "黄定祥", "女", "高红香", "男", "刘军", "男", "叶松", "男", "易俊林", "男", "张威", "男", "刘卫华", "男", "李浩", "男", "李寿庚", "男", "涂洋", "男", "曹晶", "男", "陈辉", "女", "彭博", "男", "严雪冰", "男", "刘青", "女", "印媛", "男", "吴道雄", "男", "邓旻", "男", "陈骏", "男", "崔波", "男", "韩静颐", "男", "严安勇", "男", "刘攀", "女", "刘艳", "女", "孙昕", "女", "郑新", "女", "徐睿", "女", "李月杰", "男", "吕焱鑫", "女", "刘沈", "男", "朱绍军", "女", "马茜", "女", "唐蕾", "女", "刘姣", "女", "于芳", "男", "吴健", "女", "张丹梅", "女", "王燕", "女", "贾兆梅", "男", "程柏漠", "男", "程辉", "女", "任明慧", "女", "焦莹", "女", "马淑娟", "男", "徐涛", "男", "孙庆国", "男", "刘胜", "女", "傅广凤", "男", "袁弘", "男", "高令旭", "男", "栾树权", "女", "申霞", "女", "韩文萍", "女", "隋艳", "男", "邢海洲", "女", "王宁", "女", "陈晶", "女", "吕翠", "女", "刘少敏", "女", "刘少君", "男", "孔鹏", "女", "张冰", "女", "王芳", "男", "万世忠", "女", "徐凡", "女", "张玉梅", "女", "何莉", "女", "时会云", "女", "王玉杰", "女", "谭素英", "女", "李艳红", "女", "刘素莉", "男", "王旭海", "女", "安丽梅", "女", "姚露", "女", "贾颖", "女", "曹微", "男", "黄经华", "女", "陈玉华", "女", "姜媛", "女", "魏立平", "女", "张萍", "男", "来辉", "女", "陈秀玫", "男", "石岩", "男", "王洪捍", "男", "张树军", "女", "李亚琴", "女", "王凤", "女", "王珊华", "女", "杨丹丹", "女", "教黎明", "女", "修晶", "女", "丁晓霞", "女", "张丽", "女", "郭素兰", "女", "徐艳丽", "女", "任子英", "女", "胡雁", "女", "彭洪亮", "女", "高玉珍", "女", "王玉姝", "男", "郑伟", "女", "姜春玲", "女", "张伟", "女", "王颖", "女", "金萍", "男", "孙望", "男", "闫宝东", "男", "周相永", "女", "杨美娜", "女", "欧立新", "女", "刘宝霞", "女", "刘艳杰", "女", "宋艳平", "男", "李克", "女", "梁翠", "女", "宗宏伟", "女", "刘国伟", "女", "敖志敏", "女", "尹玲" };
+            string[] EMAIL_NAMES = { "qq.com", "gmail.com", "163.com", "126.com", "outlook.com", "foxmail.com" };
+
+            var users = new List<User>();
+            var rdm = new Random();
+
+            for (int i = 0, count = USER_NAMES.Length; i < count; i += 2)
             {
-                new RoleUser()
+                string gender = USER_NAMES[i];
+                string chineseName = USER_NAMES[i + 1];
+                string userName = "user" + i.ToString();
+
+                users.Add(new User
                 {
-                    UserID=db.Users.FirstOrDefault(p=>p.Name=="park").ID,
-                    RoleID=db.Roles.FirstOrDefault(p=>p.Name=="停车场管理员").ID,
-                } ,
-                new RoleUser()
+                    Name = userName,
+                    Gender = gender,
+                    Password = PasswordUtil.CreateDbPassword(userName),
+                    ChineseName = chineseName,
+                    Email = userName + "@" + EMAIL_NAMES[rdm.Next(0, EMAIL_NAMES.Length)],
+                    Enabled = true,
+                    CreateTime = DateTime.Now
+                });
+            }
+
+            // 添加超级管理员
+            users.Add(new User
+            {
+                Name = "admin",
+                Gender = "男",
+                Password = PasswordUtil.CreateDbPassword("admin"),
+                ChineseName = "超级管理员",
+                Email = "admin@fineui.com",
+                Enabled = true,
+                CreateTime = DateTime.Now
+            });
+
+            return users;
+        }
+
+        //private static List<User> GetUsers()
+        //{
+        //    var users = new List<User>
+        //    {
+        //        new User
+        //        {
+        //            Name = "park",
+        //            Gender = "男",
+        //            Password = PasswordUtil.CreateDbPassword("park"),
+        //            ChineseName = "停车场管理员",
+        //            Email = "",
+        //            Enabled = true,
+        //            CreateTime = DateTime.Now
+        //        },
+        //        new User
+        //        {
+        //            Name = "car",
+        //            Gender = "男",
+        //            Password = PasswordUtil.CreateDbPassword("car"),
+        //            ChineseName = "业务管理员",
+        //            Email = "",
+        //            Enabled = true,
+        //            CreateTime = DateTime.Now
+        //        },
+
+        //        // 添加超级管理员
+        //        new User
+        //        {
+        //            Name = "admin",
+        //            Gender = "男",
+        //            Password = PasswordUtil.CreateDbPassword("admin"),
+        //            ChineseName = "超级管理员",
+        //            Email = "",
+        //            Enabled = true,
+        //            CreateTime = DateTime.Now
+        //        }
+        //    };
+
+        //    return users;
+        //}
+
+        #endregion
+
+        #region GetRoles
+
+        private static List<Role> GetRoles()
+        {
+            var roles = new List<Role>()
+            {
+                new Role()
                 {
-                    UserID=db.Users.FirstOrDefault(p=>p.Name=="car").ID,
-                    RoleID=db.Roles.FirstOrDefault(p=>p.Name=="业务管理员").ID,
+                    Name = "系统管理员",
+                    Remark = ""
+                },
+                new Role()
+                {
+                    Name = "部门管理员",
+                    Remark = ""
+                },
+                new Role()
+                {
+                    Name = "项目经理",
+                    Remark = ""
+                },
+                new Role()
+                {
+                    Name = "开发经理",
+                    Remark = ""
+                },
+                new Role()
+                {
+                    Name = "开发人员",
+                    Remark = ""
+                },
+                new Role()
+                {
+                    Name = "后勤人员",
+                    Remark = ""
+                },
+                new Role()
+                {
+                    Name = "外包人员",
+                    Remark = ""
                 }
             };
-            return rus;
-        }
-        private static List<Title> GetTitles()
-        {
-            var titles = new List<Title>()
-            {
 
-            };
-
-            return titles;
+            return roles;
         }
+
+        //private static List<Role> GetRoles()
+        //{
+        //    var roles = new List<Role>()
+        //    {
+        //        new Role()
+        //        {
+        //            Name = "系统管理员",
+        //            Remark = ""
+        //        },
+        //        new Role()
+        //        {
+        //            Name = "停车场管理员",
+        //            Remark = ""
+        //        },
+        //        new Role()
+        //        {
+        //            Name = "业务管理员",
+        //            Remark = ""
+        //        },
+
+        //    };
+
+        //    return roles;
+        //}
+
+        #endregion
+
+        #region GetPowers
 
         private static List<Power> GetPowers()
         {
@@ -563,150 +654,20 @@ namespace Park.Admin.Models
                 },
                 new Power
                 {
-                    Name = "ParkPower",
-                    Title = "停车场管理权限",
-                    GroupName = "Park"
+                    Name = "TestPage1View",
+                    Title = "浏览测试页面一",
+                    GroupName = "Test"
                 },
                 new Power
                 {
-                    Name = "CarAndOwnerPower",
-                    Title = "车辆与车主管理权限",
-                    GroupName = "Park"
+                    Name = "TestPage2View",
+                    Title = "浏览测试页面二",
+                    GroupName = "Test"
                 }
             };
 
             return powers;
         }
-
-        private static List<Role> GetRoles()
-        {
-            var roles = new List<Role>()
-            {
-                new Role()
-                {
-                    Name = "系统管理员",
-                    Remark = ""
-                },
-                new Role()
-                {
-                    Name = "停车场管理员",
-                    Remark = ""
-                },
-                new Role()
-                {
-                    Name = "业务管理员",
-                    Remark = ""
-                },
-
-            };
-
-            return roles;
-        }
-
-        private static List<User> GetUsers()
-        {
-            var users = new List<User>
-            {
-                new User
-                {
-                    Name = "park",
-                    Gender = "男",
-                    Password = PasswordUtil.CreateDbPassword("park"),
-                    ChineseName = "停车场管理员",
-                    Email = "",
-                    Enabled = true,
-                    CreateTime = DateTime.Now
-                },
-                new User
-                {
-                    Name = "car",
-                    Gender = "男",
-                    Password = PasswordUtil.CreateDbPassword("car"),
-                    ChineseName = "业务管理员",
-                    Email = "",
-                    Enabled = true,
-                    CreateTime = DateTime.Now
-                },
-
-                // 添加超级管理员
-                new User
-                {
-                    Name = "admin",
-                    Gender = "男",
-                    Password = PasswordUtil.CreateDbPassword("admin"),
-                    ChineseName = "超级管理员",
-                    Email = "",
-                    Enabled = true,
-                    CreateTime = DateTime.Now
-                }
-            };
-
-            return users;
-        }
-
-
-        private static List<Dept> GetDepts()
-        {
-            var depts = new List<Dept>();
-
-            return depts;
-        }
-
-        private static List<Config> GetConfigs()
-        {
-            var configs = new List<Config> {
-                new Config
-                {
-                    ConfigKey = "Title",
-                    ConfigValue = "停车场管理系统",
-                    Remark = "网站的标题"
-                },
-                new Config
-                {
-                    ConfigKey = "PageSize",
-                    ConfigValue = "50",
-                    Remark = "表格每页显示的个数"
-                },
-                new Config
-                {
-                    ConfigKey = "Theme",
-                    ConfigValue = "image_blue_sky",
-                    Remark = "网站主题"
-                },
-                new Config
-                {
-                    ConfigKey = "HelpList",
-                    ConfigValue = "[{\"Text\":\"万年历\",\"Icon\":\"Calendar\",\"ID\":\"wannianli\",\"URL\":\"~/Admin/HelpWanNianLi\"},{\"Text\":\"科学计算器\",\"Icon\":\"Calculator\",\"ID\":\"jisuanqi\",\"URL\":\"~/Admin/HelpJiSuanQi\"},{\"Text\":\"系统帮助\",\"Icon\":\"Help\",\"ID\":\"help\",\"URL\":\"~/Admin/Help\"}]",
-                    Remark = "帮助下拉列表的JSON字符串"
-                }
-            };
-
-            return configs;
-        }
-        //private static List<Title> GetTitles()
-        //{
-        //    var titles = new List<Title>()
-        //    {
-        //        new Title()
-        //        {
-        //            Name = "总经理"
-        //        },
-        //        new Title()
-        //        {
-        //            Name = "部门经理"
-        //        },
-        //        new Title()
-        //        {
-        //            Name = "高级工程师"
-        //        },
-        //        new Title()
-        //        {
-        //            Name = "工程师"
-        //        }
-        //    };
-
-        //    return titles;
-        //}
 
         //private static List<Power> GetPowers()
         //{
@@ -960,261 +921,470 @@ namespace Park.Admin.Models
         //        },
         //        new Power
         //        {
-        //            Name = "TestPage1View",
-        //            Title = "浏览测试页面一",
-        //            GroupName = "Test"
+        //            Name = "ParkPower",
+        //            Title = "停车场管理权限",
+        //            GroupName = "Park"
         //        },
         //        new Power
         //        {
-        //            Name = "TestPage2View",
-        //            Title = "浏览测试页面二",
-        //            GroupName = "Test"
+        //            Name = "CarAndOwnerPower",
+        //            Title = "车辆与车主管理权限",
+        //            GroupName = "Park"
         //        }
         //    };
 
         //    return powers;
         //}
 
-        //private static List<Role> GetRoles()
+        #endregion
+
+        #region GetTitles
+
+        private static List<Title> GetTitles()
+        {
+            var titles = new List<Title>()
+            {
+                new Title()
+                {
+                    Name = "总经理"
+                },
+                new Title()
+                {
+                    Name = "部门经理"
+                },
+                new Title()
+                {
+                    Name = "高级工程师"
+                },
+                new Title()
+                {
+                    Name = "工程师"
+                }
+            };
+
+            return titles;
+        }
+
+        //private static List<Title> GetTitles()
         //{
-        //    var roles = new List<Role>()
+        //    var titles = new List<Title>()
         //    {
-        //        new Role()
-        //        {
-        //            Name = "系统管理员",
-        //            Remark = ""
-        //        },
-        //        new Role()
-        //        {
-        //            Name = "部门管理员",
-        //            Remark = ""
-        //        },
-        //        new Role()
-        //        {
-        //            Name = "项目经理",
-        //            Remark = ""
-        //        },
-        //        new Role()
-        //        {
-        //            Name = "开发经理",
-        //            Remark = ""
-        //        },
-        //        new Role()
-        //        {
-        //            Name = "开发人员",
-        //            Remark = ""
-        //        },
-        //        new Role()
-        //        {
-        //            Name = "后勤人员",
-        //            Remark = ""
-        //        },
-        //        new Role()
-        //        {
-        //            Name = "外包人员",
-        //            Remark = ""
-        //        }
+
         //    };
 
-        //    return roles;
+        //    return titles;
         //}
 
-        //private static List<User> GetUsers()
+        #endregion
+
+        #region GetRolePowers
+
+        private static List<RolePower> GetRolePowers(ParkAdminContext db)
+        {
+            var rps = new List<RolePower>()
+            {
+
+            };
+            return rps;
+        }
+
+        //private static List<RolePower> GetRolePowers(ParkAdminContext db)
         //{
-        //    string[] USER_NAMES = { "男", "童光喜", "男", "方原柏", "女", "祝春亚", "男", "涂辉", "男", "舒兆国", "男", "熊忠文", "男", "徐吉琳", "男", "方金海", "男", "包卫峰", "女", "靖小燕", "男", "杨习斌", "男", "徐长旺", "男", "聂建雄", "男", "周敦友", "男", "陈友庭", "女", "陆静芳", "男", "袁国柱", "女", "骆新桂", "男", "许治国", "男", "马先加", "男", "赵恢川", "男", "柯常胜", "男", "黄国鹏", "男", "柯尊北", "男", "刘海云", "男", "罗清波", "男", "张业权", "女", "丁溯鋆", "男", "吴俊", "男", "郑江", "男", "李亚华", "男", "石光富", "男", "谭志洪", "男", "胡中生", "男", "董龙剑", "男", "陈红", "男", "汪海平", "男", "彭道洲", "女", "尹莉君", "男", "占耀玲", "男", "付杰", "男", "王红艳", "男", "邝兴", "男", "饶玮", "男", "王方胜", "男", "陈劲松", "男", "邓庆华", "男", "王石林", "男", "胡俊明", "男", "索相龙", "男", "陈海军", "男", "吴文涛", "女", "熊望梅", "女", "段丽华", "女", "胡莎莎", "男", "徐友安", "男", "肖诗涛", "男", "王闯", "男", "余兴龙", "男", "芦荫杰", "男", "丁金富", "男", "谭军令", "女", "鄢旭燕", "男", "田坤", "男", "夏德胜", "男", "喻显发", "男", "马兴宝", "男", "孙学涛", "男", "陶云成", "男", "马远健", "男", "田华", "男", "聂子森", "男", "郑永军", "男", "余昌平", "男", "陶俊华", "男", "李小林", "男", "李荣宝", "男", "梅盈凯", "男", "张元群", "男", "郝新华", "男", "刘红涛", "男", "向志强", "男", "伍小峰", "男", "胡勇民", "男", "黄定祥", "女", "高红香", "男", "刘军", "男", "叶松", "男", "易俊林", "男", "张威", "男", "刘卫华", "男", "李浩", "男", "李寿庚", "男", "涂洋", "男", "曹晶", "男", "陈辉", "女", "彭博", "男", "严雪冰", "男", "刘青", "女", "印媛", "男", "吴道雄", "男", "邓旻", "男", "陈骏", "男", "崔波", "男", "韩静颐", "男", "严安勇", "男", "刘攀", "女", "刘艳", "女", "孙昕", "女", "郑新", "女", "徐睿", "女", "李月杰", "男", "吕焱鑫", "女", "刘沈", "男", "朱绍军", "女", "马茜", "女", "唐蕾", "女", "刘姣", "女", "于芳", "男", "吴健", "女", "张丹梅", "女", "王燕", "女", "贾兆梅", "男", "程柏漠", "男", "程辉", "女", "任明慧", "女", "焦莹", "女", "马淑娟", "男", "徐涛", "男", "孙庆国", "男", "刘胜", "女", "傅广凤", "男", "袁弘", "男", "高令旭", "男", "栾树权", "女", "申霞", "女", "韩文萍", "女", "隋艳", "男", "邢海洲", "女", "王宁", "女", "陈晶", "女", "吕翠", "女", "刘少敏", "女", "刘少君", "男", "孔鹏", "女", "张冰", "女", "王芳", "男", "万世忠", "女", "徐凡", "女", "张玉梅", "女", "何莉", "女", "时会云", "女", "王玉杰", "女", "谭素英", "女", "李艳红", "女", "刘素莉", "男", "王旭海", "女", "安丽梅", "女", "姚露", "女", "贾颖", "女", "曹微", "男", "黄经华", "女", "陈玉华", "女", "姜媛", "女", "魏立平", "女", "张萍", "男", "来辉", "女", "陈秀玫", "男", "石岩", "男", "王洪捍", "男", "张树军", "女", "李亚琴", "女", "王凤", "女", "王珊华", "女", "杨丹丹", "女", "教黎明", "女", "修晶", "女", "丁晓霞", "女", "张丽", "女", "郭素兰", "女", "徐艳丽", "女", "任子英", "女", "胡雁", "女", "彭洪亮", "女", "高玉珍", "女", "王玉姝", "男", "郑伟", "女", "姜春玲", "女", "张伟", "女", "王颖", "女", "金萍", "男", "孙望", "男", "闫宝东", "男", "周相永", "女", "杨美娜", "女", "欧立新", "女", "刘宝霞", "女", "刘艳杰", "女", "宋艳平", "男", "李克", "女", "梁翠", "女", "宗宏伟", "女", "刘国伟", "女", "敖志敏", "女", "尹玲" };
-        //    string[] EMAIL_NAMES = { "qq.com", "gmail.com", "163.com", "126.com", "outlook.com", "foxmail.com" };
-
-        //    var users = new List<User>();
-        //    var rdm = new Random();
-
-        //    for (int i = 0, count = USER_NAMES.Length; i < count; i += 2)
+        //    var rps = new List<RolePower>()
         //    {
-        //        string gender = USER_NAMES[i];
-        //        string chineseName = USER_NAMES[i + 1];
-        //        string userName = "user" + i.ToString();
-
-        //        users.Add(new User
+        //        new RolePower()
         //        {
-        //            Name = userName,
-        //            Gender = gender,
-        //            Password = PasswordUtil.CreateDbPassword(userName),
-        //            ChineseName = chineseName,
-        //            Email = userName + "@" + EMAIL_NAMES[rdm.Next(0, EMAIL_NAMES.Length)],
-        //            Enabled = true,
-        //            CreateTime = DateTime.Now
-        //        });
-        //    }
-
-        //    // 添加超级管理员
-        //    users.Add(new User
-        //    {
-        //        Name = "admin",
-        //        Gender = "男",
-        //        Password = PasswordUtil.CreateDbPassword("admin"),
-        //        ChineseName = "超级管理员",
-        //        Email = "admin@fineui.com",
-        //        Enabled = true,
-        //        CreateTime = DateTime.Now
-        //    });
-
-        //    return users;
-        //}
-
-
-        //private static List<Dept> GetDepts()
-        //{
-        //    var depts = new List<Dept> {
-        //        new Dept
+        //            PowerID=db.Powers.FirstOrDefault(p=>p.Name=="ParkPower").ID,
+        //            RoleID=db.Roles.FirstOrDefault(p=>p.Name=="停车场管理员").ID,
+        //        } ,
+        //        new RolePower()
         //        {
-        //            Name = "研发部",
-        //            SortIndex = 1,
-        //            Remark = "顶级部门",
-        //            Children = new List<Dept> {
-        //                new Dept
-        //                {
-        //                    Name = "开发部",
-        //                    SortIndex = 1,
-        //                    Remark = "二级部门"
-        //                },
-        //                new Dept
-        //                {
-        //                    Name = "测试部",
-        //                    SortIndex = 2,
-        //                    Remark = "二级部门"
-        //                }
-        //            }
-        //        },
-        //        new Dept
+        //            PowerID=db.Powers.FirstOrDefault(p=>p.Name=="CarAndOwnerPower").ID,
+        //            RoleID=db.Roles.FirstOrDefault(p=>p.Name=="停车场管理员").ID,
+        //        } ,
+        //        new RolePower()
         //        {
-        //            Name = "销售部",
-        //            SortIndex = 2,
-        //            Remark = "顶级部门",
-        //            Children = new List<Dept> {
-        //                new Dept
-        //                {
-        //                    Name = "直销部",
-        //                    SortIndex = 1,
-        //                    Remark = "二级部门"
-        //                },
-        //                new Dept
-        //                {
-        //                    Name = "渠道部",
-        //                    SortIndex = 2,
-        //                    Remark = "二级部门"
-        //                }
-        //            }
-        //        },
-        //        new Dept
-        //        {
-        //            Name = "客服部",
-        //            SortIndex = 3,
-        //            Remark = "顶级部门",
-        //            Children = new List<Dept> {
-        //                new Dept
-        //                {
-        //                    Name = "实施部",
-        //                    SortIndex = 1,
-        //                    Remark = "二级部门"
-        //                },
-        //                new Dept
-        //                {
-        //                    Name = "售后服务部",
-        //                    SortIndex = 2,
-        //                    Remark = "二级部门"
-        //                },
-        //                new Dept
-        //                {
-        //                    Name = "大客户服务部",
-        //                    SortIndex = 3,
-        //                    Remark = "二级部门"
-        //                }
-        //            }
-        //        },
-        //        new Dept
-        //        {
-        //            Name = "财务部",
-        //            SortIndex = 4,
-        //            Remark = "顶级部门"
-        //        },
-        //        new Dept
-        //        {
-        //            Name = "行政部",
-        //            SortIndex = 5,
-        //            Remark = "顶级部门",
-        //            Children = new List<Dept> {
-        //                new Dept
-        //                {
-        //                    Name = "人事部",
-        //                    SortIndex = 1,
-        //                    Remark = "二级部门"
-        //                },
-        //                new Dept
-        //                {
-        //                    Name = "后勤部",
-        //                    SortIndex = 2,
-        //                    Remark = "二级部门"
-        //                },
-        //                new Dept
-        //                {
-        //                    Name = "运输部",
-        //                    SortIndex = 3,
-        //                    Remark = "二级部门",
-        //                    Children = new List<Dept>{
-        //                        new Dept{
-        //                            Name = "省内运输部",
-        //                            SortIndex = 1,
-        //                            Remark = "三级部门",
-        //                        },
-        //                        new Dept{
-        //                            Name = "国内运输部",
-        //                            SortIndex = 2,
-        //                            Remark = "三级部门",
-        //                        },
-        //                        new Dept{
-        //                            Name = "国际运输部",
-        //                            SortIndex = 3,
-        //                            Remark = "三级部门",
-        //                        }
-        //                    }
-        //                }
-        //            }
+        //            PowerID=db.Powers.FirstOrDefault(p=>p.Name=="CarAndOwnerPower").ID,
+        //            RoleID=db.Roles.FirstOrDefault(p=>p.Name=="业务管理员").ID,
         //        }
         //    };
-
-        //    return depts;
+        //    return rps;
         //}
 
-        //private static List<Config> GetConfigs()
+        #endregion
+
+        #region GetRoleUsers
+
+        private static List<RoleUser> GetRoleUsers(ParkAdminContext db)
+        {
+            var rus = new List<RoleUser>()
+            {
+
+            };
+            return rus;
+        }
+
+        //private static List<RoleUser> GetRoleUsers(ParkAdminContext db)
         //{
-        //    var configs = new List<Config> {
-        //        new Config
+        //    var rus = new List<RoleUser>()
+        //    {
+        //        new RoleUser()
         //        {
-        //            ConfigKey = "Title",
-        //            ConfigValue = "Park.Admin",
-        //            Remark = "网站的标题"
-        //        },
-        //        new Config
+        //            UserID=db.Users.FirstOrDefault(p=>p.Name=="park").ID,
+        //            RoleID=db.Roles.FirstOrDefault(p=>p.Name=="停车场管理员").ID,
+        //        } ,
+        //        new RoleUser()
         //        {
-        //            ConfigKey = "PageSize",
-        //            ConfigValue = "20",
-        //            Remark = "表格每页显示的个数"
-        //        },
-        //        new Config
-        //        {
-        //            ConfigKey = "Theme",
-        //            ConfigValue = "Cupertino",
-        //            Remark = "网站主题"
-        //        },
-        //        new Config
-        //        {
-        //            ConfigKey = "HelpList",
-        //            ConfigValue = "[{\"Text\":\"万年历\",\"Icon\":\"Calendar\",\"ID\":\"wannianli\",\"URL\":\"~/Admin/HelpWanNianLi\"},{\"Text\":\"科学计算器\",\"Icon\":\"Calculator\",\"ID\":\"jisuanqi\",\"URL\":\"~/Admin/HelpJiSuanQi\"},{\"Text\":\"系统帮助\",\"Icon\":\"Help\",\"ID\":\"help\",\"URL\":\"~/Admin/Help\"}]",
-        //            Remark = "帮助下拉列表的JSON字符串"
+        //            UserID=db.Users.FirstOrDefault(p=>p.Name=="car").ID,
+        //            RoleID=db.Roles.FirstOrDefault(p=>p.Name=="业务管理员").ID,
         //        }
         //    };
-
-        //    return configs;
+        //    return rus;
         //}
 
+        #endregion
+
+        #region GetMenus
+
+        private static List<Menu> GetMenus(ParkAdminContext context)
+        {
+            var menus = new List<Menu> {
+                new Menu
+                {
+                    Name = "统计图表",
+                    SortIndex = 99,
+                    NavigateUrl = "~/Charts",
+                    ImageUrl = "~/res/images/park/icon_charts.png",
+                    ViewPower = context.Powers.Where(p => p.Name == "ParkPower").FirstOrDefault<Power>()
+                },
+                new Menu
+                {
+                    Name = "系统管理",
+                    SortIndex = 100,
+                    Remark = "顶级菜单",
+                    ImageUrl = "~/res/images/park/icon_settings.png",
+                    Children = new List<Menu> {
+                        new Menu
+                        {
+                            Name = "用户管理",
+                            SortIndex = 101,
+                            Remark = "二级菜单",
+                            NavigateUrl = "~/Admin/UserList",
+                            //ImageUrl = "~/res/images/park/icon_settings.png",
+                            ViewPower = context.Powers.Where(p => p.Name == "CoreUserView").FirstOrDefault<Power>()
+                        },
+                        new Menu
+                        {
+                            Name = "职称管理",
+                            SortIndex = 102,
+                            Remark = "二级菜单",
+                            NavigateUrl = "~/Admin/Title",
+                            //ImageUrl = "~/res/icon/tag_blue.png",
+                            ViewPower = context.Powers.Where(p => p.Name == "CoreTitleView").FirstOrDefault<Power>()
+                        },
+                        new Menu
+                        {
+                            Name = "职称用户管理",
+                            SortIndex = 103,
+                            Remark = "二级菜单",
+                            NavigateUrl = "~/Admin/TitleUser",
+                            //ImageUrl = "~/res/icon/tag_blue.png",
+                            ViewPower = context.Powers.Where(p => p.Name == "CoreTitleUserView").FirstOrDefault<Power>()
+                        },
+                        new Menu
+                        {
+                            Name = "部门管理",
+                            SortIndex = 104,
+                            Remark = "二级菜单",
+                            NavigateUrl = "~/Admin/Dept",
+                            //ImageUrl = "~/res/icon/tag_blue.png",
+                            ViewPower = context.Powers.Where(p => p.Name == "CoreDeptView").FirstOrDefault<Power>()
+                        },
+                        new Menu
+                        {
+                            Name = "部门用户管理",
+                            SortIndex = 105,
+                            Remark = "二级菜单",
+                            NavigateUrl = "~/Admin/DeptUser",
+                            //ImageUrl = "~/res/icon/tag_blue.png",
+                            ViewPower = context.Powers.Where(p => p.Name == "CoreDeptUserView").FirstOrDefault<Power>()
+                        },
+                        new Menu
+                        {
+                            Name = "角色管理",
+                            SortIndex = 106,
+                            Remark = "二级菜单",
+                            NavigateUrl = "~/Admin/Role",
+                            //ImageUrl = "~/res/images/park/icon_settings.png",
+                            ViewPower = context.Powers.Where(p => p.Name == "CoreRoleView").FirstOrDefault<Power>()
+                        },
+                        new Menu
+                        {
+                            Name = "角色用户管理",
+                            SortIndex = 107,
+                            Remark = "二级菜单",
+                            NavigateUrl = "~/Admin/RoleUser",
+                            //ImageUrl = "~/res/images/park/icon_settings.png",
+                            ViewPower = context.Powers.Where(p => p.Name == "CoreRoleUserView").FirstOrDefault<Power>()
+                        },
+                        new Menu
+                        {
+                            Name = "权限管理",
+                            SortIndex = 108,
+                            Remark = "二级菜单",
+                            NavigateUrl = "~/Admin/Power",
+                            //ImageUrl = "~/res/images/park/icon_settings.png",
+                            ViewPower = context.Powers.Where(p => p.Name == "CorePowerView").FirstOrDefault<Power>()
+                        },
+                        new Menu
+                        {
+                            Name = "角色权限管理",
+                            SortIndex = 109,
+                            Remark = "二级菜单",
+                            NavigateUrl = "~/Admin/RolePower",
+                            //ImageUrl = "~/res/images/park/icon_settings.png",
+                            ViewPower = context.Powers.Where(p => p.Name == "CoreRolePowerView").FirstOrDefault<Power>()
+                        },
+                        new Menu
+                        {
+                            Name = "菜单管理",
+                            SortIndex = 110,
+                            Remark = "二级菜单",
+                            NavigateUrl = "~/Admin/Menu",
+                            //ImageUrl = "~/res/images/park/icon_settings.png",
+                            ViewPower = context.Powers.Where(p => p.Name == "CoreMenuView").FirstOrDefault<Power>()
+                        },
+                        new Menu
+                        {
+                            Name = "在线统计",
+                            SortIndex = 111,
+                            Remark = "二级菜单",
+                            NavigateUrl = "~/Admin/Online",
+                            //ImageUrl = "~/res/images/park/icon_settings.png",
+                            ViewPower = context.Powers.Where(p => p.Name == "CoreOnlineView").FirstOrDefault<Power>()
+                        },
+                         new Menu{
+                            Name = "数据库管理",
+                            SortIndex = 112,
+                            NavigateUrl = "~/Admin/DatabaseManage",
+                            //ImageUrl = "~/res/images/park/icon_settings_2.png",
+                            ViewPower = context.Powers.Where(p => p.Name == "ParkPower").FirstOrDefault<Power>()
+                        },
+                        new Menu
+                        {
+                            Name = "系统配置",
+                            SortIndex = 113,
+                            Remark = "二级菜单",
+                            NavigateUrl = "~/Admin/Config",
+                            //ImageUrl = "~/res/images/park/icon_settings.png",
+                            ViewPower = context.Powers.Where(p => p.Name == "CoreConfigView").FirstOrDefault<Power>()
+                        },
+                        new Menu
+                        {
+                            Name = "修改密码",
+                            SortIndex = 114,
+                            Remark = "二级菜单",
+                            NavigateUrl = "~/Admin/ChangePassword",
+                            //ImageUrl = "~/res/images/park/icon_settings.png",
+                        }
+                    }
+                },
+            };
+
+            return menus;
+        }
+
+        //private static List<Menu> GetMenus(ParkAdminContext context)
+        //{
+        //    var menus = new List<Menu> {
+        //        new Menu
+        //        {
+        //            Name = "车与车主",
+        //            SortIndex = 10,
+        //            ImageUrl = "~/res/images/park/icon_car.png",
+        //            Children = new List<Menu> {
+        //                new Menu
+        //                {
+        //                    Name = "车主管理",
+        //                    SortIndex = 11,
+        //                    NavigateUrl = "~/CarAndOwner/CarOwnerList",
+        //                    ViewPower = context.Powers.Where(p => p.Name == "CarAndOwnerPower").FirstOrDefault<Power>()
+        //                } ,
+        //                new Menu
+        //                {
+        //                    Name = "车辆管理",
+        //                    SortIndex = 12,
+        //                    NavigateUrl = "~/CarAndOwner/CarList",
+        //                    ViewPower = context.Powers.Where(p => p.Name == "CarAndOwnerPower").FirstOrDefault<Power>()
+        //                } ,
+        //                new Menu{
+        //                    Name = "停车记录",
+        //                    SortIndex = 13,
+        //                    NavigateUrl = "~/CarAndOwner/ParkRecordList",
+        //                    ViewPower = context.Powers.Where(p => p.Name == "CarAndOwnerPower").FirstOrDefault<Power>()
+
+        //                } ,
+        //                new Menu{
+        //                    Name = "交易记录",
+        //                    SortIndex = 14,
+        //                    NavigateUrl = "~/CarAndOwner/TransactionRecordList",
+        //                    ViewPower = context.Powers.Where(p => p.Name == "CarAndOwnerPower").FirstOrDefault<Power>()
+
+        //                } ,
+        //            }
+        //        },
+        //        new Menu
+        //        {
+        //            Name = "停车场",
+        //            SortIndex = 20,
+        //            ImageUrl = "~/res/images/park/icon_park.png",
+        //            Children = new List<Menu> {
+        //                new Menu
+        //                {
+        //                    Name = "停车区管理",
+        //                    SortIndex = 21,
+        //                    NavigateUrl = "~/Parking/ParkAreaList",
+        //                    ViewPower = context.Powers.Where(p => p.Name == "ParkPower").FirstOrDefault<Power>()
+
+        //                } ,
+        //                new Menu
+        //                {
+        //                    Name = "停车位管理",
+        //                    SortIndex = 12,
+        //                    NavigateUrl = "~/Parking/ParkingSpaceList",
+        //                    ViewPower = context.Powers.Where(p => p.Name == "ParkPower").FirstOrDefault<Power>()
+
+        //                } ,
+        //            }
+        //        },
+        //        new Menu
+        //        {
+        //            Name = "业务模拟",
+        //            SortIndex = 30,
+        //           NavigateUrl = "~/Overview/Simulate",
+        //           ImageUrl = "~/res/images/park/icon_bag.png",
+        //            ViewPower = context.Powers.Where(p => p.Name == "ParkPower").FirstOrDefault<Power>()
+
+        //        },
+        //        new Menu
+        //        {
+        //            Name = "统计图表",
+        //            SortIndex = 40,
+        //           NavigateUrl = "~/Overview/Charts",
+        //           ImageUrl = "~/res/images/park/icon_charts.png",
+        //            ViewPower = context.Powers.Where(p => p.Name == "ParkPower").FirstOrDefault<Power>()
+
+        //        },
+        //         new Menu{
+        //            Name = "停车场设置",
+        //            SortIndex = 50,
+        //           NavigateUrl = "~/Overview/ParkSettings",
+        //           ImageUrl = "~/res/images/park/icon_settings_2.png",
+        //             ViewPower = context.Powers.Where(p => p.Name == "ParkPower").FirstOrDefault<Power>()
+
+        //        },
+        //         new Menu{
+        //            Name = "数据库管理",
+        //            SortIndex = 60,
+        //           NavigateUrl = "~/Overview/DatabaseManage",
+        //                    ImageUrl = "~/res/images/park/icon_settings_2.png",
+        //             ViewPower = context.Powers.Where(p => p.Name == "ParkPower").FirstOrDefault<Power>()
+
+        //        },
+        //        new Menu
+        //        {
+        //            Name = "系统管理",
+        //            SortIndex = 100,
+        //            Remark = "顶级菜单",
+        //            ImageUrl = "~/res/images/park/icon_settings.png",
+        //            Children = new List<Menu> {
+        //                new Menu
+        //                {
+        //                    Name = "用户管理",
+        //                    SortIndex = 101,
+        //                    Remark = "二级菜单",
+        //                    NavigateUrl = "~/Admin/UserList",
+        //                    //ImageUrl = "~/res/images/park/icon_settings.png",
+        //                    ViewPower = context.Powers.Where(p => p.Name == "CoreUserView").FirstOrDefault<Power>()
+        //                },
+        //                new Menu
+        //                {
+        //                    Name = "角色管理",
+        //                    SortIndex = 106,
+        //                    Remark = "二级菜单",
+        //                    NavigateUrl = "~/Admin/Role",
+        //                    //ImageUrl = "~/res/images/park/icon_settings.png",
+        //                    ViewPower = context.Powers.Where(p => p.Name == "CoreRoleView").FirstOrDefault<Power>()
+        //                },
+        //                new Menu
+        //                {
+        //                    Name = "角色用户管理",
+        //                    SortIndex = 107,
+        //                    Remark = "二级菜单",
+        //                    NavigateUrl = "~/Admin/RoleUser",
+        //                    //ImageUrl = "~/res/images/park/icon_settings.png",
+        //                    ViewPower = context.Powers.Where(p => p.Name == "CoreRoleUserView").FirstOrDefault<Power>()
+        //                },
+        //                new Menu
+        //                {
+        //                    Name = "权限管理",
+        //                    SortIndex = 108,
+        //                    Remark = "二级菜单",
+        //                    NavigateUrl = "~/Admin/Power",
+        //                    //ImageUrl = "~/res/images/park/icon_settings.png",
+        //                    ViewPower = context.Powers.Where(p => p.Name == "CorePowerView").FirstOrDefault<Power>()
+        //                },
+        //                new Menu
+        //                {
+        //                    Name = "角色权限管理",
+        //                    SortIndex = 109,
+        //                    Remark = "二级菜单",
+        //                    NavigateUrl = "~/Admin/RolePower",
+        //                    //ImageUrl = "~/res/images/park/icon_settings.png",
+        //                    ViewPower = context.Powers.Where(p => p.Name == "CoreRolePowerView").FirstOrDefault<Power>()
+        //                },
+        //                new Menu
+        //                {
+        //                    Name = "菜单管理",
+        //                    SortIndex = 110,
+        //                    Remark = "二级菜单",
+        //                    NavigateUrl = "~/Admin/Menu",
+        //                    //ImageUrl = "~/res/images/park/icon_settings.png",
+        //                    ViewPower = context.Powers.Where(p => p.Name == "CoreMenuView").FirstOrDefault<Power>()
+        //                },
+        //                new Menu
+        //                {
+        //                    Name = "在线统计",
+        //                    SortIndex = 111,
+        //                    Remark = "二级菜单",
+        //                    NavigateUrl = "~/Admin/Online",
+        //                    //ImageUrl = "~/res/images/park/icon_settings.png",
+        //                    ViewPower = context.Powers.Where(p => p.Name == "CoreOnlineView").FirstOrDefault<Power>()
+        //                },
+        //                new Menu
+        //                {
+        //                    Name = "系统配置",
+        //                    SortIndex = 112,
+        //                    Remark = "二级菜单",
+        //                    NavigateUrl = "~/Admin/Config",
+        //                    //ImageUrl = "~/res/images/park/icon_settings.png",
+        //                    ViewPower = context.Powers.Where(p => p.Name == "CoreConfigView").FirstOrDefault<Power>()
+        //                },
+        //                new Menu
+        //                {
+        //                    Name = "修改密码",
+        //                    SortIndex = 113,
+        //                    Remark = "二级菜单",
+        //                    NavigateUrl = "~/Admin/ChangePassword",
+        //                    //ImageUrl = "~/res/images/park/icon_settings.png",
+        //                }
+        //            }
+        //        },
+        //    };
+
+        //    return menus;
+        //}
+
+        #endregion
     }
 }

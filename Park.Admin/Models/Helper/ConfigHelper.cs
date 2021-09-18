@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
-
 using System.Linq;
 
 namespace Park.Admin.Models
@@ -79,12 +78,11 @@ namespace Park.Admin.Models
             db.SaveChanges();
 
             Reload();
-
         }
 
         #endregion
 
-        #region IsDemo
+        #region properties
 
         /// <summary>
         /// 是否演示模式
@@ -93,13 +91,13 @@ namespace Park.Admin.Models
         {
             get
             {
-                return Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["IsDemo"]);
+                return Convert.ToBoolean(GetValue("IsDemo"));
+            }
+            set
+            {
+                SetValue("IsDemo", value.ToString());
             }
         }
-
-        #endregion
-
-        #region properties
 
         /// <summary>
         /// 网站标题
@@ -146,7 +144,6 @@ namespace Park.Admin.Models
             }
         }
 
-
         /// <summary>
         /// 菜单样式
         /// </summary>
@@ -162,7 +159,6 @@ namespace Park.Admin.Models
             }
         }
 
-
         /// <summary>
         /// 网站主题
         /// </summary>
@@ -177,7 +173,6 @@ namespace Park.Admin.Models
                 SetValue("Theme", value);
             }
         }
-
 
         #endregion
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -71,7 +70,7 @@ namespace Park.Admin.Models
 
         public object Clone()
         {
-            Menu menu = new Menu
+            var menu = new Menu
             {
                 ID = ID,
                 Name = Name,

@@ -1,28 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Web;
-using System.Xml;
 using FineUICore;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Park.Admin.Models;
 using System.Reflection;
 using System.Data;
-using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
-using Park.Models;
 
 namespace Park.Admin
 {
@@ -112,7 +101,7 @@ namespace Park.Admin
         /// <param name="target"></param>
         public virtual void ShowNotify(string message, MessageBoxIcon messageIcon, Target target)
         {
-            Notify n = new Notify
+            var n = new Notify
             {
                 Target = target,
                 Message = message,
@@ -280,7 +269,7 @@ namespace Park.Admin
             // 将用户拥有的权限列表保存在Session中，这样就避免每个请求多次查询数据库
             if (context.Session.GetObject<List<string>>("UserPowerList") == null)
             {
-                List<string> rolePowerNames = new List<string>();
+                var rolePowerNames = new List<string>();
 
                 // 超级管理员拥有所有权限
                 if (GetIdentityName(context) == "admin")
@@ -323,7 +312,7 @@ namespace Park.Admin
         /// <returns></returns>
         public static List<int> GetIdentityRoleIDs(HttpContext context)
         {
-            List<int> roleIDs = new List<int>();
+            var roleIDs = new List<int>();
 
             if (context.User.Identity.IsAuthenticated)
             {
@@ -331,7 +320,7 @@ namespace Park.Admin
 
                 foreach (string roleID in userData.Split(','))
                 {
-                    if (!String.IsNullOrEmpty(roleID))
+                    if (!string.IsNullOrEmpty(roleID))
                     {
                         roleIDs.Add(Convert.ToInt32(roleID));
                     }
@@ -408,12 +397,12 @@ namespace Park.Admin
         // 将一个树型结构放在一个下列列表中可供选择
         protected List<T> ResolveDDL<T>(List<T> source, int currentID, bool addRootNode) where T : ICustomTree, ICloneable, IKeyID, new()
         {
-            List<T> result = new List<T>();
+            var result = new List<T>();
 
             if (addRootNode)
             {
                 // 添加根节点
-                T root = new T
+                var root = new T
                 {
                     Name = "--根节点--",
                     ID = -1,
@@ -506,7 +495,6 @@ namespace Park.Admin
         #region Dapper
 
         private ParkAdminContext _db;
-        private ParkContext _parkDb;
         /// <summary>
         /// 每个请求共享一个数据库连接实例
         /// </summary>
@@ -521,18 +509,7 @@ namespace Park.Admin
                 return _db;
             }
         }        
-        protected ParkContext ParkDB
-        {
-            get
-            {
-                if (_parkDb == null)
-                {
-                    _parkDb = BaseModel.GetParkDbConnection();
-                }
-                return _parkDb;
-            }
-        }
-
+      
         /// <summary>
         /// 获取数据库连接实例（静态方法）
         /// </summary>
@@ -541,33 +518,27 @@ namespace Park.Admin
         {
             return FineUICore.PageContext.GetRequestService<ParkAdminContext>();
         }      
-        public static ParkContext GetParkDbConnection()
-        {
-            return FineUICore.PageContext.GetRequestService<ParkContext>();
-        }
 
-
-        /// <summary>
-        /// 获取实例的属性名称列表
-        /// </summary>
-        /// <param name="instance"></param>
-        /// <returns></returns>
-        private string[] GetReflectionProperties(object instance)
-        {
-            var result = new List<string>();
-            foreach (PropertyInfo property in instance.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
-            {
-                var propertyName = property.Name;
-                // NotMapped特性
-                var notMappedAttr = property.GetCustomAttribute<NotMappedAttribute>(false);
-                if (notMappedAttr == null && propertyName != "ID")
-                {
-                    result.Add(propertyName);
-                }
-            }
-            return result.ToArray();
-        }
-
+        ///// <summary>
+        ///// 获取实例的属性名称列表
+        ///// </summary>
+        ///// <param name="instance"></param>
+        ///// <returns></returns>
+        //private static string[] GetReflectionProperties(object instance)
+        //{
+        //    var result = new List<string>();
+        //    foreach (PropertyInfo property in instance.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
+        //    {
+        //        var propertyName = property.Name;
+        //        // NotMapped特性
+        //        var notMappedAttr = property.GetCustomAttribute<NotMappedAttribute>(false);
+        //        if (notMappedAttr == null && propertyName != "ID")
+        //        {
+        //            result.Add(propertyName);
+        //        }
+        //    }
+        //    return result.ToArray();
+        //}
 
         protected IQueryable<T> Sort<T>(IQueryable<T> q, PagingInfoViewModel pagingInfo)
         {
@@ -740,7 +711,5 @@ namespace Park.Admin
         }
 
         #endregion
-
-
     }
 }
