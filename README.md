@@ -1,6 +1,8 @@
-﻿﻿# Park.Admin
+﻿﻿﻿# Park.Admin
 
 基于 FineUICore 的通用权限管理框架，包括用户管理、职称管理、部门管理、角色管理、角色权限管理等模块。
+
+参考博客：[ASP.NET Core 快速入门（FineUICore + Razor Pages + Entity Framework Core）](https://www.cnblogs.com/sanshi/p/12441884.html)
 
 # 模块
 
@@ -19,7 +21,7 @@
 	请使用管理员账号登陆（用户名：admin 密码：admin）。
 
 知识储备：
-	1. 本项目采用Entity Framework Core 的Code First开发模式，数据库会在网站第一次运行时自动创建。
+	1. 本项目采用 Entity Framework Core 的 Code First 开发模式，数据库会在网站第一次运行时自动创建。
 	2. 如果尚未安装 .Net Core 5.0，请先安装 SDK：https://dotnet.microsoft.com/download/dotnet-core/5.0
 
 # 日志
