@@ -605,39 +605,41 @@ namespace Park.Admin.Models
 
         private static List<User> GetUsers()
         {
-            var users = new List<User>();
-            users.Add(new User
+            var users = new List<User>
             {
-                Name = "park",
-                Gender = "男",
-                Password = PasswordUtil.CreateDbPassword("park"),
-                ChineseName = "停车场管理员",
-                Email = "",
-                Enabled = true,
-                CreateTime = DateTime.Now
-            });
-            users.Add(new User
-            {
-                Name = "car",
-                Gender = "男",
-                Password = PasswordUtil.CreateDbPassword("car"),
-                ChineseName = "业务管理员",
-                Email = "",
-                Enabled = true,
-                CreateTime = DateTime.Now
-            });
+                new User
+                {
+                    Name = "park",
+                    Gender = "男",
+                    Password = PasswordUtil.CreateDbPassword("park"),
+                    ChineseName = "停车场管理员",
+                    Email = "",
+                    Enabled = true,
+                    CreateTime = DateTime.Now
+                },
+                new User
+                {
+                    Name = "car",
+                    Gender = "男",
+                    Password = PasswordUtil.CreateDbPassword("car"),
+                    ChineseName = "业务管理员",
+                    Email = "",
+                    Enabled = true,
+                    CreateTime = DateTime.Now
+                },
 
-            // 添加超级管理员
-            users.Add(new User
-            {
-                Name = "admin",
-                Gender = "男",
-                Password = PasswordUtil.CreateDbPassword("admin"),
-                ChineseName = "超级管理员",
-                Email = "",
-                Enabled = true,
-                CreateTime = DateTime.Now
-            });
+                // 添加超级管理员
+                new User
+                {
+                    Name = "admin",
+                    Gender = "男",
+                    Password = PasswordUtil.CreateDbPassword("admin"),
+                    ChineseName = "超级管理员",
+                    Email = "",
+                    Enabled = true,
+                    CreateTime = DateTime.Now
+                }
+            };
 
             return users;
         }

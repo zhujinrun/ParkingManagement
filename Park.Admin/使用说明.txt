@@ -1,28 +1,4 @@
-﻿Park.Admin
-基于 FineUICore 的通用权限管理框架，包括用户管理、职称管理、部门管理、角色管理、角色权限管理等模块。
-
-
-注意：
-	1. Park.Admin作为演示程序，请不要直接用于真实项目。
-	2. Park.Admin作为演示程序，版本之间不兼容，也不支持版本升级。
-
-
-使用步骤：
-	1. 用 VS2019 打开项目工程文件（Park.Admin.sln）；
-	2. 运行（Ctrl+F5）！
-
-	请使用管理员账号登陆（用户名：admin 密码：admin）。
-	
-	
-
-知识储备：
-	1. 本项目采用Entity Framework Core 的Code First开发模式，数据库会在网站第一次运行时自动创建。
-	2. 如果尚未安装 .Net Core 3.1，请先安装 SDK：https://dotnet.microsoft.com/download/dotnet-core/3.1
-
-
-
-
-发布历史：
+﻿发布历史：
 
 
 +2020-03-31 v6.2
