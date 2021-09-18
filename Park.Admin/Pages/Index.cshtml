@@ -2,11 +2,8 @@
 @model Park.Admin.Pages.IndexModel
 
 @section head {
-
     <link type="text/css" rel="stylesheet" href="~/res/css/index.css" />
-
 }
-
 
 @section body{
     <script>
@@ -28,18 +25,20 @@
                     </a>
                 </td>
                 <td style="text-align: right;">
-                    @*<f:Button CssClass="icontopaction systemhelp" ID="Button1" Text="下载源代码" IconAlign="Top" IconFont="_Download" EnableDefaultState="false" EnableDefaultCorner="false">
+                    @*
+                        <f:Button CssClass="icontopaction systemhelp" ID="Button1" Text="下载源代码" IconAlign="Top" IconFont="_Download" EnableDefaultState="false" EnableDefaultCorner="false">
                             <Listeners>
                                 <f:Listener Event="click" Handler="onDownloadClick"></f:Listener>
                             </Listeners>
                         </f:Button>
                         <f:Button ID="btnSystemHelp" Text="系统帮助" CssClass="icontopaction systemhelp" MenuID="helpMenu" IconAlign="Top" IconFont="_Question" EnableDefaultState="false" EnableDefaultCorner="false" ShowMenuIcon="false" Menu="@Model.SystemHelpMenu">
-                        </f:Button>*@
-                    @*<f:Button CssClass="icontopaction systemhelp" ID="btnThemeSelect" Text="主题仓库" IconAlign="Top" IconFont="_Skin" EnableDefaultState="false" EnableDefaultCorner="false" TabIndex="-1">
+                        </f:Button>
+                    *@
+                    <f:Button CssClass="icontopaction systemhelp" ID="btnThemeSelect" Text="主题仓库" IconAlign="Top" IconFont="_Skin" EnableDefaultState="false" EnableDefaultCorner="false" TabIndex="-1">
                         <Listeners>
                             <f:Listener Event="click" Handler="onThemeSelectClick" />
                         </Listeners>
-                    </f:Button>*@
+                    </f:Button>
                     <f:Button ID="btnUserName" CssClass="userpicaction" Text="@Model.UserName" IconUrl="@Url.Content("~/res/images/park/head.png")" IconAlign="Left"
                               ShowMenuIcon="true" EnableDefaultState="false" EnableDefaultCorner="false">
                         <Menu>
@@ -55,10 +54,10 @@
     <table id="footer" class="bottomtable f-widget-header" style="display:none;">
         <tr>
             <td style="width: 260px;">
-                @*&nbsp;版本：@Model.ProductVersion*@
+                &nbsp;版本：@Model.ProductVersion
             </td>
-            <td style="text-align: center;">地信171第6组</td>
-            @*<td style="width: 260px; text-align: right;">在线人数：&nbsp;@Model.OnlineUserCount</td>*@
+            @*<td style="text-align: center;">地信171第6组</td>*@
+            <td style="width: 260px; text-align: right; padding-right: 5px;">在线人数：&nbsp;@Model.OnlineUserCount</td>
         </tr>
     </table>
 
@@ -105,11 +104,12 @@
 
     <script>
 
-
+        @*
         // 下载源代码
         function onDownloadClick(event) {
             window.open('http://fineui.com/fans/', '_blank');
         }
+        *@
 
         // 点击主题仓库
         function onThemeSelectClick(event) {
@@ -210,7 +210,6 @@
             }
             //console.log(F.ui.leftRegion)
         });
-
 
         function isPC() {
             var userAgentInfo = navigator.userAgent;

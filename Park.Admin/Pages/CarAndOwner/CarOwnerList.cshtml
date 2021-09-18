@@ -77,17 +77,17 @@
     <f:Window ID="win" IsModal="true" Hidden="true" Target="Top" EnableResize="true"
               EnableMaximize="true" EnableIFrame="true" Width="400" Height="600">
     </f:Window>
-    @*<f:Window ID="Window1" IsModal="true" Hidden="true" Target="Top" EnableResize="true"
+    @*
+        <f:Window ID="Window1" IsModal="true" Hidden="true" Target="Top" EnableResize="true"
                   EnableMaximize="true" EnableIFrame="true" Width="900" Height="600"
                   OnClose="@Url.Handler("UserList_DoPostBack")" OnCloseFields="Panel1">
-        </f:Window>*@
+        </f:Window>
+    *@
 }
 
 @section script{
     <script src="~/res/js/grid.js"></script>
     <script>
-
-
 
     function onNewClick(event) {
         var url = '@ViewBag.MobileUrl' + '/#/login';
@@ -109,7 +109,6 @@
                 { class: "password", text: "重置密码" },
             ]);
     }
-
 
         function otherActionButtonActions(cnode, rowData) {
                 if (cnode.hasClass('password')) {

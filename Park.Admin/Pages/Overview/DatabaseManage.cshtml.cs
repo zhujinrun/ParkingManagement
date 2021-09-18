@@ -20,9 +20,9 @@ namespace Park.Admin.Pages.Overview
         //public List<ParkArea> ParkAreas { get; set; }
         public async Task<IActionResult> OnGetAsync()
         {
-
             return Page();
         }
+
         public async Task<IActionResult> OnPostResetDatabaseAsync()
         {
             await ParkDB.Database.EnsureDeletedAsync();
@@ -30,6 +30,7 @@ namespace Park.Admin.Pages.Overview
             ShowNotify("操作成功");
             return UIHelper.Result();
         } 
+
         public async Task<IActionResult> OnPostResetAdminDatabaseAsync()
         {
             await DB.Database.EnsureDeletedAsync();
@@ -37,12 +38,12 @@ namespace Park.Admin.Pages.Overview
             ShowNotify("操作成功，请重新登录");
             return UIHelper.Result();
         }
+
         public async Task<IActionResult> OnPostGenerateTestDataAsync(int count,bool totalDay)
         {
             await ParkDatabaseInitializer.GenerateTestDatasAsync(ParkDB,count,()=> totalDay?DateTime.Today.AddHours(20): DateTime.Now);
             ShowNotify("操作成功");
             return UIHelper.Result();
         }
-
     }
 }
