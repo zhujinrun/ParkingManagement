@@ -64,6 +64,12 @@ namespace Park.Admin.Models
                 },
                 new Config
                 {
+                    ConfigKey = "MenuType",
+                    ConfigValue = "Tree", // Tree, PlainTree
+                    Remark = "菜单样式"
+                },
+                new Config
+                {
                     ConfigKey = "HelpList",
                     ConfigValue = "[{\"Text\":\"万年历\",\"Icon\":\"Calendar\",\"ID\":\"wannianli\",\"URL\":\"~/Admin/HelpWanNianLi\"},{\"Text\":\"科学计算器\",\"Icon\":\"Calculator\",\"ID\":\"jisuanqi\",\"URL\":\"~/Admin/HelpJiSuanQi\"},{\"Text\":\"系统帮助\",\"Icon\":\"Help\",\"ID\":\"help\",\"URL\":\"~/Admin/Help\"}]",
                     Remark = "帮助下拉列表的JSON字符串"

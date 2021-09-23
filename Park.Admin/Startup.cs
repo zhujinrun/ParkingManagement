@@ -80,8 +80,9 @@ namespace Park.Admin
             app.UseRouting();
 
             app.UseAuthentication();
+
             app.UseAuthorization();
-            app.UseDeveloperExceptionPage();
+
             // FineUI 中间件（确保 UseFineUI 位于 UseEndpoints 的前面）
             app.UseFineUI();
 

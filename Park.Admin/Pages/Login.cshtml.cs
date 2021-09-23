@@ -22,7 +22,7 @@ namespace Park.Admin.Pages
 
         private void LoadData()
         {
-            Window1Title = string.Format("Park.Admin v{0}", GetProductVersion());
+            Window1Title = string.Format("{0} v{1}", ConfigHelper.Title, GetProductVersion());
         }
 
         public async Task<IActionResult> OnPostBtnSubmit_ClickAsync(string tbxUserName, string tbxPassword)

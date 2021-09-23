@@ -44,7 +44,7 @@ namespace Park.Admin.Pages
             UserName = GetIdentityName();
             OnlineUserCount = (await GetOnlineCountAsync()).ToString();
             ProductVersion = GetProductVersion();
-            ConfigTitle = string.Format("Park.Admin v{0}", GetProductVersion());
+            ConfigTitle = string.Format("{0} v{1}", ConfigHelper.Title, GetProductVersion());
 
             SystemHelpMenu = GetSystemHelpMenu();
         }
